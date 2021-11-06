@@ -2,31 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UsuarioResource;
-use App\Models\User;
-use App\Models\Usuarios;
+use App\Models\Partidas;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class UsuariosController extends Controller
+class PartidasController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getUsuariosPartidas($acepto): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
-    {
-        $users = Usuarios::where('usuarios.Acepto',$acepto)
-            ->join('partidas','partidas.idJugador','=','usuarios.id')
-            ->select('usuarios.id',DB::raw("COUNT(partidas.idJuego) as total_partidas"))
-            ->groupBy("usuarios.id")
-            ->orderByDesc('total_partidas')
-            ->take(10)
-            ->get();
-        return UsuarioResource::collection($users);
-    }
     public function index()
     {
         //
@@ -56,10 +41,10 @@ class UsuariosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Partidas  $partidas
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuarios $usuarios)
+    public function show(Partidas $partidas)
     {
         //
     }
@@ -67,10 +52,10 @@ class UsuariosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Partidas  $partidas
      * @return \Illuminate\Http\Response
      */
-    public function edit(Usuarios $usuarios)
+    public function edit(Partidas $partidas)
     {
         //
     }
@@ -79,10 +64,10 @@ class UsuariosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Partidas  $partidas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuarios $usuarios)
+    public function update(Request $request, Partidas $partidas)
     {
         //
     }
@@ -90,10 +75,10 @@ class UsuariosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Usuarios  $usuarios
+     * @param  \App\Models\Partidas  $partidas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuarios $usuarios)
+    public function destroy(Partidas $partidas)
     {
         //
     }

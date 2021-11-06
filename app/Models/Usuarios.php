@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Usuarios extends Model
 {
     use HasFactory;
+    public function partidas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Partidas::class);
+    }
 }
