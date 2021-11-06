@@ -20,9 +20,20 @@ class UsuariosController extends Controller
     {
         $users = Usuarios::where('usuarios.Acepto',$acepto)
             ->join('partidas','partidas.idJugador','=','usuarios.id')
-            ->select('usuarios.id',DB::raw("COUNT(partidas.idJuego) as total_partidas"))
-            ->groupBy("usuarios.id")
+            ->select('usuarios.id','usuarios.Nombre','usuarios.Apellido',DB::raw("COUNT(partidas.idJuego) as total_partidas"))
+            ->groupBy('usuarios.id','usuarios.Nombre','usuarios.Apellido')
             ->orderByDesc('total_partidas')
+            ->take(10)
+            ->get();
+        return UsuarioResource::collection($users);
+    }
+    public function getUsuariosMasGanadores($disfraz): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $users = Usuarios::where('usuarios.idDisfraz',$disfraz)
+            ->join('partidas','partidas.idJugador','=','usuarios.id')
+            ->select('usuarios.id','usuarios.Nombre','usuarios.Apellido',DB::raw("SUM(partidas.puntos) as total_puntos"))
+            ->groupBy('usuarios.id','usuarios.Nombre','usuarios.Apellido')
+            ->orderByDesc('total_puntos')
             ->take(10)
             ->get();
         return UsuarioResource::collection($users);
