@@ -27,6 +27,13 @@ class UsuariosController extends Controller
             ->get();
         return UsuarioResource::collection($users);
     }
+    public function getUsuariosPorcentaje($fecha1,$fecha2,$letra): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $users = Usuarios::whereBetween('fechaRegistro', [$fecha1, $fecha2])
+            ->where('Nombre' ,'like',$letra.'%')
+            ->get();
+        return UsuarioResource::collection($users);
+    }
     public function getUsuariosMasGanadores($disfraz): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $users = Usuarios::where('usuarios.idDisfraz',$disfraz)

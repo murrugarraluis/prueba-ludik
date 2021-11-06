@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/usuarios-partidas/{acepto}',[\App\Http\Controllers\UsuariosController::class,'getUsuariosPartidas']);
+Route::get('/usuarios-porcentaje/{fecha1}/{fecha2}/{letra}',[\App\Http\Controllers\UsuariosController::class,'getUsuariosPorcentaje']);
 Route::get('/usuarios-mas-ganadores/{disfraz}',[\App\Http\Controllers\UsuariosController::class,'getUsuariosMasGanadores']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
